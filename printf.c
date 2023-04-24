@@ -14,12 +14,13 @@ int _printf(const char *format, ...)
 va_list args;
 int len = 0;
 const char *p = format;
-va_start(args, format);
 
 if (format == NULL)
 {
 	return (-1);
 }
+va_start(args, format);
+
 while (*p != '\0')
 {
 if (*p == '%')
@@ -78,7 +79,8 @@ len += print_unsign((unsigned long)ptr, 16, "0123456789abcdef");
 break;
 }
 default:
-
+len += _putchar('%');
+len += _putchar(*p);
 break;
 }
 }
