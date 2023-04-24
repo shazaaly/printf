@@ -1,6 +1,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include "main.h"
+#include <stdio.h>
 
 /**
  * _printf - print formatted output to stdout
@@ -15,6 +16,10 @@ int len = 0;
 const char *p = format;
 va_start(args, format);
 
+if (format == NULL)
+{
+	return (-1);
+}
 while (*p != '\0')
 {
 if (*p == '%')
@@ -27,6 +32,12 @@ break;
 case 's':
 {
 const char *str = va_arg(args, const char *);
+if (str != NULL)
+{
+	return (-1);
+}
+break;
+
 while (*str != '\0')
 {
 len += _putchar(*str++);
@@ -67,8 +78,7 @@ len += print_unsign((unsigned long)ptr, 16, "0123456789abcdef");
 break;
 }
 default:
-len += _putchar('%');
-len += _putchar(*p);
+
 break;
 }
 }
