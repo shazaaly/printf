@@ -66,6 +66,17 @@ len += _putchar('x');
 len += print_unsign((unsigned long)ptr, 16, "0123456789abcdef");
 break;
 }
+case 'b':
+{
+int num = va_arg(args, int);
+unsigned int n = va_arg(args, unsigned int);
+if (num != 1)
+{
+continue;
+}
+len += print_binary(n);
+break;
+}
 default:
 len += _putchar('%');
 len += _putchar(*p);
