@@ -2,19 +2,6 @@
 #include <unistd.h>
 #include "main.h"
 
-int print_unsign(unsigned int n, int base, const char *digits);
-
-/**
- * _putchar - write a character to stdout
- * @c: the character to write
- *
- * Return: 1 on success, or -1 on error
- */
-int _putchar(char c)
-{
-return (write(1, &c, 1));
-}
-
 /**
  * _printf - print formatted output to stdout
  * @format: format string
@@ -37,7 +24,8 @@ switch (*(++p))
 case 'c':
 len += _putchar(va_arg(args, int));
 break;
-case 's': {
+case 's':
+{
 const char *str = va_arg(args, const char *);
 while (*str != '\0')
 {
@@ -94,22 +82,3 @@ va_end(args);
 return (len);
 }
 
-/**
- * print_unsign - print an unsigned integer in a specified base
- * @n: the number to print
- * @base: the base to use (e.g. 10 for decimal, 16 for hexadecimal, etc.)
- * @digits: the string of digits to use for the base (e.g. "0123456789abcdef")
- *
- * Return: the number of characters printed
- */
-int print_unsign(unsigned int n, int base, const char *digits)
-{
-int len = 0;
-
-if (n / base > 0)
-{
-len += print_unsign(n / base, base, digits);
-}
-len += _putchar(digits[n % base]);
-return (len);
-}
