@@ -1,110 +1,115 @@
-#include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include "main.h"
+
+int print_unsign(unsigned int n, int base, const char *digits);
+
 /**
- * print_normal - prints a character to stdout
- * @format: format string to print
+ * _putchar - write a character to stdout
+ * @c: the character to write
  *
- * Return: 1
+ * Return: 1 on success, or -1 on error
  */
-int print_normal(const char *format)
+int _putchar(char c)
 {
-write(STDOUT_FILENO, format, 1);
-return (1);
+return (write(1, &c, 1));
 }
 
-
-
-
-
-
 /**
- * print_char - prints a character to stdout
- * @args: arguments list
- *
- * Return: 1
- */
-int print_char(va_list args)
-{
-char c = (char)va_arg(args, int);
-write(STDOUT_FILENO, &c, 1);
-return (1);
-}
-
-
-
-
-/**
- * print_string - prints a string to stdout
- * @args: arguments list
+ * _printf - print formatted output to stdout
+ * @format: format string
  *
  * Return: number of characters printed
  */
-int print_string(va_list args)
-{
-char *s = va_arg(args, char *);
-size_t len = strlen(s);
-write(STDOUT_FILENO, s, len);
-return (len);
-}
-
-
-
-
-
-/**
- * print_percent - prints a percent symbol to stdout
- *
- * Return: 1
- */
-int print_percent(void)
-{
-write(STDOUT_FILENO, "%", 1);
-return (1);
-}
-
-
-
-
-
-/**
- *_printf - function that produces output according to a format
- *@format: string containing zero or more format specifiers
- *Return: number of characters printed
- */
-
-
 int _printf(const char *format, ...)
 {
 va_list args;
+int len = 0;
+const char *p = format;
 va_start(args, format);
 
-int count = 0;
-while (*format)
+while (*p != '\0')
 {
-if (*format != '%')
+if (*p == '%')
 {
-count += print_normal(format);
+switch (*(++p))
+{
+case 'c':
+len += _putchar(va_arg(args, int));
+break;
+case 's': {
+const char *str = va_arg(args, const char *);
+while (*str != '\0')
+{
+len += _putchar(*str++);
+}
+break;
+}
+case '%':
+len += _putchar('%');
+break;
+case 'd':
+case 'i': {
+int num = va_arg(args, int);
+if (num < 0)
+{
+len += _putchar('-');
+num = -num;
+}
+len += print_unsign(num, 10, "0123456789");
+break;
+}
+case 'u':
+len += print_unsign(va_arg(args, unsigned int), 10, "0123456789");
+break;
+case 'o':
+len += print_unsign(va_arg(args, unsigned int), 8, "01234567");
+break;
+case 'x':
+len += print_unsign(va_arg(args, unsigned int), 16, "0123456789abcdef");
+break;
+case 'X':
+len += print_unsign(va_arg(args, unsigned int), 16, "0123456789ABCDEF");
+break;
+case 'p': {
+void *ptr = va_arg(args, void *);
+len += _putchar('0');
+len += _putchar('x');
+len += print_unsign((unsigned long)ptr, 16, "0123456789abcdef");
+break;
+}
+default:
+len += _putchar('%');
+len += _putchar(*p);
+break;
+}
 }
 else
 {
-switch (*++format)
-{
-case 'c':
-count += print_char(args);
-break;
-case 's':
-count += print_string(args);
-break;
-case '%':
-count += print_percent();
-break;
-default;
-break;
+len += _putchar(*p);
 }
-format++;
-}
+p++;
 }
 va_end(args);
-return (count);
+return (len);
+}
+
+/**
+ * print_unsign - print an unsigned integer in a specified base
+ * @n: the number to print
+ * @base: the base to use (e.g. 10 for decimal, 16 for hexadecimal, etc.)
+ * @digits: the string of digits to use for the base (e.g. "0123456789abcdef")
+ *
+ * Return: the number of characters printed
+ */
+int print_unsign(unsigned int n, int base, const char *digits)
+{
+int len = 0;
+
+if (n / base > 0)
+{
+len += print_unsign(n / base, base, digits);
+}
+len += _putchar(digits[n % base]);
+return (len);
 }
