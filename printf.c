@@ -66,10 +66,7 @@ len += print_unsign(va_arg(args, unsigned int), 16, "0123456789ABCDEF");
 break;
 case 'p': {
 void *ptr = va_arg(args, void *);
-if (ptr == NULL)
-{
-	_printf("(nil)");
-}
+
 len += _putchar('0');
 len += _putchar('x');
 len += print_unsign((unsigned long)ptr, 16, "0123456789abcdef");
