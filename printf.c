@@ -75,7 +75,8 @@ len += print_unsign((unsigned long)ptr, 16, "0123456789abcdef");
 break;
 }
 default:
-
+len += _putchar('%');
+len += _putchar(*p);
 break;
 }
 }
