@@ -14,7 +14,6 @@ int _printf(const char *format, ...)
 va_list args;
 int len = 0;
 const char *p = format;
-
 va_start(args, format);
 
 while (*p != '\0')
@@ -29,12 +28,6 @@ break;
 case 's':
 {
 const char *str = va_arg(args, const char *);
-if (str != NULL)
-{
-	return (-1);
-}
-break;
-
 while (*str != '\0')
 {
 len += _putchar(*str++);
