@@ -28,6 +28,10 @@ break;
 case 's':
 {
 const char *str = va_arg(args, const char *);
+if (str == NULL)
+{
+	str = "(null)";
+}
 while (*str != '\0')
 {
 len += _putchar(*str++);
