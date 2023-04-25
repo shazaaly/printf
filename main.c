@@ -38,8 +38,9 @@ int main(void)
     len2 = printf("Percent:[%%]\n");
     _printf("Len:[%d]\n", len);
     printf("Len:[%d]\n", len2);
-	_printf("%s", NULL);  /* test null str*/
-	    _printf("Unknown:[%r]\n");
-    printf("Unknown:[%r]\n");
+	_printf("%s\n", NULL);  /* test null str*/
+	    _printf("Pointer value: %p\n", (void *)1234);  /*test pointer null*/
+
+
     return (0);
 }
