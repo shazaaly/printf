@@ -23,13 +23,7 @@ switch (*(++p))
 {
 case 'b':
 {
-int num = va_arg(args, int);
 unsigned int n = va_arg(args, unsigned int);
-
-if (num != 1)
-{
-continue;
-}
 len += print_binary(n);
 break;
 }
