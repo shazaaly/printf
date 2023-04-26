@@ -14,6 +14,11 @@ int _printf(const char *format, ...)
 va_list args;
 int len = 0;
 const char *p = format;
+
+if (format == NULL)
+{
+	return(-1);
+}
 va_start(args, format);
 
 while (*p != '\0')
