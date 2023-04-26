@@ -17,7 +17,7 @@ const char *p = format;
 
 if (format == NULL)
 {
-	return(-1);
+	return (-1);
 }
 va_start(args, format);
 
