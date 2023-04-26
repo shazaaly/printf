@@ -9,40 +9,40 @@
  */
 int _printf_binary(const char *format, ...)
 {
-    va_list args;
-    int len = 0;
-    const char *p = format;
+va_list args;
+int len = 0;
+const char *p = format;
 
-    va_start(args, format);
+va_start(args, format);
 
-    while (*p != '\0')
-    {
-        if (*p == '%')
-        {
-            switch (*(++p))
-            {
-                case 'b':
-                {
-                    int num = va_arg(args, int);
-                    unsigned int n = va_arg(args, unsigned int);
+while (*p != '\0')
+{
+if (*p == '%')
+{
+switch (*(++p))
+{
+case 'b':
+{
+int num = va_arg(args, int);
+unsigned int n = va_arg(args, unsigned int);
 
-                    if (num != 1)
-                    {
-                        continue;
-                    }
-                    len += print_binary(n);
-                    break;
-                }
-            }
-        }
-        else
-        {
-            _putchar(*p);
-            len++;
-        }
-        p++;
-    }
+if (num != 1)
+{
+continue;
+}
+len += print_binary(n);
+break;
+}
+}
+}
+else
+{
+_putchar(*p);
+len++;
+}
+p++;
+}
 
-    va_end(args);
-    return (len);
+va_end(args);
+return (len);
 }
